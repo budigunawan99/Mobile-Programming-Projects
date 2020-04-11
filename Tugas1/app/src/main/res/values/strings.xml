@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Tugas1</string>
+    <string name="npm">Npm</string>
+    <string name="button">Simpan</string>
+    <string name="nama">Nama</string>
+    <string name="prodi">Prodi</string>
+    <string name="profil">Profil</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">bnawan</string>
+    <string name="login">LOGIN</string>
+    <string name="register">REGISTER</string>
+    <string name="or">OR</string>
+    <string name="log_in">LOG IN</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+</resources>

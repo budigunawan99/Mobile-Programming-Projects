@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\internal_impl-25.0.1_ce0639ba65a8f43231d3ee647093fd7f86d2e3d5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-25.0.1_a056fcb4ed1d36fc8b04d7aea603cab82ed7dd3b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\AndroidSDK\extras\android\m2repository\com\android\support\support-annotations\25.0.1\support-annotations-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\support-annotations-25.0.1_91dd6cda482a2c9b530a1a4b425a0a7b9e2a0aeb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-25.0.1_27f9c1d4c2a406b522b225e1b4ad8aee427dded2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f83b00041ecfba705603fec40363416c7de69719">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\internal_impl-25.0.1_c92487596e3a58d540fe89c7919e44035ad936e9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-25.0.1_aee288a63aa8c78b733a83907210532a7993be1c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-25.0.1_a79a0eb9cb0717f516e3bf5845aa25688b7f8f19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-25.0.1_e36230a6328be544f591ed12c2c876a70fbef0cf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\internal_impl-25.0.1_2a0043a280d1d4526a72fa733acb78ca6978a284.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-25.0.1_aabd6f604943dd5ac854d8c9d55a53e8dd216ef6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-25.0.1_849913ea2f0a6964a28906ef4e821ea28041dbf0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\com.android.support-support-compat-25.0.1_386d07656f5bad18b9ef7e7793a9a45efc9c257d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\internal_impl-25.0.1_5a70a7c81a85b491fc206d726d833ff231b69d34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-25.0.1_518335fe26162b1f68880e2d519cd143c92e547d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="E:\ASproject\food-sqlite-demo\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
+        <dex dex="E:\ASproject\food-sqlite-demo\app\build\intermediates\pre-dexed\debug\internal_impl-25.0.1_eef604a5c827e86cb48957322b01279c67da42dd.jar" />
+    </item>
+
+</items>
