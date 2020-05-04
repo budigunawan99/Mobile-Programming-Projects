@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageDetail"
+            android:layout_width="150dp"
+            android:layout_height="185dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars[2]" />
+
+        <TextView
+            android:id="@+id/namadetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="10dp"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.452"
+            app:layout_constraintStart_toEndOf="@+id/imageDetail"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Shio Kambing" />
+
+        <com.uncopt.android.widget.text.justify.JustifiedTextView
+            android:id="@+id/detaildetail"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintStart_toEndOf="@+id/imageDetail"
+            app:layout_constraintTop_toBottomOf="@+id/namadetail"
+            tools:text="Lahir di Tahun 1924, 1936, 1948, 1960, 1972, 1984, 1996, 2008, 2020." />
+
+        <TextView
+            android:id="@+id/deskripsi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Deskripsi"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageDetail" />
+
+        <TextView
+            android:id="@+id/deskripsidetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:padding="20sp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deskripsi"
+            tools:text="Kamu imajinatif, menyenangkan dan benar benar murah hati terhadap orang yang kamu cintai. Namun, kamu cenderung mudah marah dan terlalu kritis. Kamu juga dikenal sebagai orang yang opportunis. Lahir dalam shio ini, kamu akan senang bekerja dalam sales atau penulis, kritikus atau penerbit.kamu kamu kamu kamu kamu kamu kamu kamu kamu kamu kamu kamu kamu kamu kamu kamu " />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

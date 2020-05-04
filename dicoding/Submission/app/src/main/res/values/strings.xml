@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Submission</string>
+    <string name="nama">Nama Shio</string>
+    <string name="detail">Ini detail shio</string>
+    <string name="about">about</string>
+    <string name="nameProfile">BUDI GUNAWAN</string>
+    <string name="emailProfile">budi99@mhs.unsyiah.ac.id</string>
+    <string name="detailProfile">Penulis dilahirkan di Banda Aceh, tepatnya tanggal 11 Agustus 1999. Penulis menyelesaikan sekolah dasar di SD Karya Budi Banda Aceh, kemudian melanjutkan pendidikan SMP dan SMA di Perguruan Kristen Methodist Indonesia Banda Aceh. Sekarang ini, penulis sedang menyelesaikan studi informatika semester 8 di Universitas Syiah Kuala Banda Aceh, salah satu universitas berakreditasi A di Pulau Sumatera. Penulis memiliki minat di hal-hal yang berkaitan dengan teknologi dan sedang berjuang untuk meraih mimpi mendirikan startup terkemuka di Indonesia dan dunia.</string>
 </resources>

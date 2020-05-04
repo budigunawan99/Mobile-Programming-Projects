@@ -11,6 +11,6 @@
         android:id="@+id/v_shio"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/main_layout" />
+        tools:listitem="@layout/shio_item" />
 
 </RelativeLayout>

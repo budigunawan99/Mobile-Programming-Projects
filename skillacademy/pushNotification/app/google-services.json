@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "260038581716",
+    "firebase_url": "https://belajar-push-notificatio-d92b6.firebaseio.com",
+    "project_id": "belajar-push-notificatio-d92b6",
+    "storage_bucket": "belajar-push-notificatio-d92b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260038581716:android:f3af014a53e30dcdbb0a41",
+        "android_client_info": {
+          "package_name": "com.bnawan.pushNotification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "260038581716-q3neub9afj2hnkoorrdlprrpjuigqi1i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bnawan.pushNotification",
+            "certificate_hash": "e58e82441e4e9d0a7f19ccb7e16c061f78eeaf37"
+          }
+        },
+        {
+          "client_id": "260038581716-33lu73otbug9m65kkqstc0ev57e209m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSXtqJkHeNAc12dQEvVO9xbnVMPM3V5ZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "260038581716-33lu73otbug9m65kkqstc0ev57e209m4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
