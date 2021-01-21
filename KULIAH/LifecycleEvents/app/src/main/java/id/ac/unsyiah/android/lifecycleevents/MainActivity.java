@@ -1,6 +1,7 @@
 package id.ac.unsyiah.android.lifecycleevents;
 
 import android.content.res.Configuration;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.d(MAIN_ACTIVITY,"onRestoreInstanceState");
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         Log.d(MAIN_ACTIVITY,"onResume");
@@ -33,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d(MAIN_ACTIVITY,"onPause");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(MAIN_ACTIVITY,"onSaveInstanceState");
     }
 
     @Override

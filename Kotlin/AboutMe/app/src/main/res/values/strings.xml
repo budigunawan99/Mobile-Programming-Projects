@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">About Me</string>
+    <string name="name">Budi Gunawan</string>
+    <string name="arrow_bottom">Arrow Bottom</string>
+    <string name="bio_text">Saya adalah seorang kapiten. Saya adalah seorang kapiten.
+        Saya adalah seorang kapiten.Saya adalah seorang kapiten.Saya adalah seorang kapiten.
+        Saya adalah seorang kapiten.Saya adalah seorang kapiten.Saya adalah seorang kapiten.
+        Saya adalah seorang kapiten.Saya adalah seorang kapiten.Saya adalah seorang kapiten.
+        Saya adalah seorang kapiten.Saya adalah seorang kapiten.Saya adalah seorang kapiten.
+    </string>
+    <string name="whatisyournickname">what is your nick name</string>
+    <string name="done_btn">done</string>
+</resources>

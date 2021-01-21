@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="myname"
+            type="com.bnawan.aboutme.Name" />
+    </data>
+    <LinearLayout
+        android:id="@+id/bio_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/name_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/name_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/name_margin"
+            android:text="@={myname.name}"
+            android:textAlignment="center"
+            android:textSize="@dimen/name_size" />
+
+        <EditText
+            android:id="@+id/nickname_edit"
+            style="@style/name_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/whatisyournickname"
+            android:inputType="textPersonName"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/nickname_text"
+            style="@style/name_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@{myname.nickname}"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/done_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/name_margin"
+            android:layout_gravity="center_horizontal"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:text="@string/done_btn" />
+
+        <ImageView
+            android:id="@+id/arrow_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/name_margin"
+            android:contentDescription="@string/arrow_bottom"
+            app:srcCompat="@android:drawable/arrow_down_float" />
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/paddingleft"
+                android:paddingEnd="@dimen/paddingright"
+                android:lineSpacingMultiplier="1.2"
+                style="@style/name_style"
+                android:text="@string/bio_text" />
+        </ScrollView>
+    </LinearLayout>
+</layout>
