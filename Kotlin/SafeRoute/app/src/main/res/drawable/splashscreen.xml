@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/white" />
+
+    <item
+        android:width="250dp"
+        android:height="200dp"
+        android:top="-95dp"
+        android:right="-10dp"
+        android:gravity="top|right">
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/colorAccent" />
+        </shape>
+    </item>
+
+    <item
+        android:width="500dp"
+        android:height="500dp"
+        android:top="-250dp"
+        android:left="-250dp"
+        android:gravity="top|left">
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/colorPrimary" />
+        </shape>
+    </item>
+
+    <item
+        android:width="250dp"
+        android:height="200dp"
+        android:bottom="-95dp"
+        android:left="-10dp"
+        android:gravity="bottom|left">
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/colorAccent" />
+        </shape>
+    </item>
+
+    <item
+        android:width="500dp"
+        android:height="500dp"
+        android:bottom="-250dp"
+        android:right="-250dp"
+        android:gravity="bottom|right">
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/colorPrimary" />
+        </shape>
+    </item>
+
+    <item
+        android:width="150dp"
+        android:height="150dp"
+        android:gravity="center">
+        <bitmap
+            android:gravity="fill_horizontal|fill_vertical"
+            android:src="@drawable/saferoute_logo" />
+    </item>
+
+</layer-list>

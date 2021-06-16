@@ -1,0 +1,50 @@
+{
+  materials: [
+    {
+      name: 'lambert2SG',
+      parameters: [
+        {
+          baseColor: 'Tex_Dolphin',
+        },
+        {
+          baseColorTint: [
+            1,
+            1,
+            1,
+            1,
+          ],
+        },
+        {
+          metallic: 0,
+        },
+        {
+          roughness: 1,
+        },
+        {
+          opacity: null,
+        },
+      ],
+      source: 'build/sceneform_sdk/default_materials/obj_material.sfm',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'sampledata/models/Mesh_Dolphin.obj',
+    name: 'Mesh_Dolphin',
+    recenter: 'root',
+    scale: 0.012449,
+  },
+  samplers: [
+    {
+      file: 'sampledata/models\\Tex_Dolphin.png',
+      name: 'Tex_Dolphin',
+      pipeline_name: 'Tex_Dolphin.png',
+    },
+  ],
+  version: '0.54:2',
+}

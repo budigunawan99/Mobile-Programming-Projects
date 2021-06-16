@@ -1,0 +1,69 @@
+package com.bnawan.saferoute.ui.beranda
+
+import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
+import com.bnawan.saferoute.R
+import com.bnawan.saferoute.databinding.FragmentBerandaBinding
+import com.bnawan.saferoute.entity.Ruangan
+
+
+class BerandaFragment : Fragment() {
+
+    private val listRuangan = ArrayList<Ruangan>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding: FragmentBerandaBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_beranda, container, false)
+
+        Log.i("isinya", "isi: " + resources.getString(R.string.text_title_pilihan_destinasi))
+        val judulTeks: TextView? = activity?.findViewById(R.id.text_title)
+        judulTeks?.text = resources.getString(R.string.text_title_pilihan_destinasi)
+
+        binding.listKelasContainer.setHasFixedSize(true)
+        listRuangan.addAll(getListRuangan())
+        showRecyclerList(binding)
+        return binding.root
+    }
+
+    private fun getListRuangan(): ArrayList<Ruangan> {
+        val namaRuangan = resources.getStringArray(R.array.nama_ruangan)
+        val gambarRuangan = resources.getIntArray(R.array.gambar_ruangan)
+        val list = ArrayList<Ruangan>()
+        for (position in namaRuangan.indices) {
+            val ruangan = Ruangan(
+                namaRuangan[position],
+                gambarRuangan[position]
+            )
+            list.add(ruangan)
+        }
+        Log.i("list ruangan", "isi: " + list)
+        return list
+    }
+
+    private fun showRecyclerList(binding: FragmentBerandaBinding) {
+        binding.listKelasContainer.layoutManager = GridLayoutManager(this.context, 2)
+        val listRuanganAdapter = ListRuanganAdapter(listRuangan)
+        binding.listKelasContainer.adapter = listRuanganAdapter
+
+        listRuanganAdapter.setOnRuanganClickCallback(object: OnRuanganClickCallback{
+            override fun onItemClicked(data: Ruangan) {
+                showSelectedRuangan(data)
+            }
+        })
+    }
+
+    private fun showSelectedRuangan(ruangan: Ruangan) {
+        Toast.makeText(this.context, "Kamu memilih ${ruangan.nama}", Toast.LENGTH_SHORT).show()
+    }
+}
