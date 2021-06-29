@@ -1,5 +1,6 @@
 package com.bnawan.saferoute.ui.beranda
 
+import android.content.res.TypedArray
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -38,15 +39,16 @@ class BerandaFragment : Fragment() {
 
     private fun getListRuangan(): ArrayList<Ruangan> {
         val namaRuangan = resources.getStringArray(R.array.nama_ruangan)
-        val gambarRuangan = resources.getIntArray(R.array.gambar_ruangan)
+        val gambarRuangan = resources.obtainTypedArray(R.array.gambar_ruangan)
         val list = ArrayList<Ruangan>()
         for (position in namaRuangan.indices) {
             val ruangan = Ruangan(
                 namaRuangan[position],
-                gambarRuangan[position]
+                gambarRuangan.getResourceId(position, -1)
             )
             list.add(ruangan)
         }
+        gambarRuangan.recycle()
         Log.i("list ruangan", "isi: " + list)
         return list
     }

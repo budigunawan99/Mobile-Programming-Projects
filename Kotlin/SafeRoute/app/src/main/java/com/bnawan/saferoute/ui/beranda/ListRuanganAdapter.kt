@@ -18,7 +18,6 @@ class ListRuanganAdapter(private val listRuangan: ArrayList<Ruangan>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListRuanganViewHolder {
         val binding = ListKelasBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        Log.d("binding", "ini binding ${parent}")
         return ListRuanganViewHolder(binding, onRuanganClickCallback)
     }
 

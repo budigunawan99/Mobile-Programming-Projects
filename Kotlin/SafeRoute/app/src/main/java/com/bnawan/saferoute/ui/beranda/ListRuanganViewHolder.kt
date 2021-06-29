@@ -14,8 +14,8 @@ class ListRuanganViewHolder(
     fun bind(ruangan: Ruangan) {
         with(binding) {
             Glide.with(itemView.context)
-                .load(R.drawable.gedung_mipa)
-                .apply(RequestOptions().override(55, 55))
+                .load(ruangan.gambar)
+                .apply(RequestOptions().override(550, 350))
                 .into(cardImg)
             cardTitle.text = ruangan.nama
 
