@@ -1,6 +1,5 @@
 package com.bnawan.saferoute.ui.beranda
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bnawan.saferoute.R
 import com.bnawan.saferoute.databinding.ListKelasBinding

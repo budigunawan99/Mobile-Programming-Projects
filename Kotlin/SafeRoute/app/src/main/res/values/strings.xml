@@ -8,10 +8,10 @@
     <string name="tentang_kami">"Aplikasi SafeRoute merupakan aplikasi navigasi indoor berbasis Augmented Reality yang mampu membantu pengguna untuk menghindari penghalang. Aplikasi ini dikembangkan oleh tim informatika Universitas Syiah Kuala dan hanya dapat digunakan pada Fakultas MIPA Universitas Syiah Kuala.  "</string>
 
     <string-array name="nama_ruangan">
-        <item>Ahmad Dahlan</item>
-        <item>Ahmad Yani</item>
-        <item>Sutomo</item>
-        <item>Gatot Soebroto</item>
+        <item>A.03.01</item>
+        <item>Toilet Pria</item>
+        <item>A.03.02</item>
+        <item>Musholla</item>
     </string-array>
 
     <integer-array name="gambar_ruangan">
