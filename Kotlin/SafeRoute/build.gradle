@@ -10,14 +10,17 @@ buildscript {
         version_lifecycle = "2.2.0"
         version_navigation = "1.0.0"
         version_room = "2.2.5"
+        version_gradle_download_task = "4.0.2"
     }
 
     repositories {
         google()
         jcenter()
+        mavenLocal()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$version_gradle"
+        classpath "de.undercouch:gradle-download-task:$version_gradle_download_task"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$version_navigation"
         // NOTE: Do not place your application dependencies here; they belong
@@ -29,6 +32,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenLocal()
     }
 }
 

@@ -1,5 +1,6 @@
 package com.bnawan.saferoute.ui.beranda
 
+import android.content.Intent
 import android.content.res.TypedArray
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bnawan.saferoute.CameraActivity
+import com.bnawan.saferoute.DetectorActivity
 import com.bnawan.saferoute.R
 import com.bnawan.saferoute.databinding.FragmentBerandaBinding
 import com.bnawan.saferoute.entity.Ruangan
@@ -66,6 +69,8 @@ class BerandaFragment : Fragment() {
     }
 
     private fun showSelectedRuangan(ruangan: Ruangan) {
-        Toast.makeText(this.context, "Kamu memilih ${ruangan.nama}", Toast.LENGTH_SHORT).show()
+        val detectorActivity = Intent(activity, DetectorActivity::class.java)
+        detectorActivity.putExtra(DetectorActivity.CAMERA_HEADER_TITLE, ruangan)
+        startActivity(detectorActivity)
     }
 }
