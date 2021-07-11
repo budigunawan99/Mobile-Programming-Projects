@@ -85,7 +85,7 @@ class CameraConnectionFragment private constructor(
          */
         @JvmStatic
         fun chooseOptimalSize(choices: Array<Size?>, width: Int, height: Int): Size? {
-            val minSize = Math.max(Math.min(width, height), MINIMUM_PREVIEW_SIZE)
+            val minSize = width.coerceAtMost(height).coerceAtLeast(MINIMUM_PREVIEW_SIZE)
             val desiredSize = Size(width, height)
 
             // Collect the supported resolutions that are at least as big as the preview Surface
@@ -256,8 +256,8 @@ class CameraConnectionFragment private constructor(
         return inflater.inflate(layout, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        textureView = view!!.findViewById<View>(R.id.texture) as AutoFitTextureView
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        textureView = view.findViewById<View>(R.id.texture) as AutoFitTextureView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

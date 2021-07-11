@@ -61,6 +61,9 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.tfe_od_activity_camera)
 
+        val backButton: ImageButton = findViewById(R.id.backButton)
+        backButton.setOnClickListener(this)
+
         val cameraTitle: TextView = findViewById(R.id.camera_title)
         val ruangan = intent.getParcelableExtra<Ruangan>(DetectorActivity.CAMERA_HEADER_TITLE) as Ruangan
         cameraTitle.text = ruangan.nama
@@ -341,6 +344,9 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
         }
 
     override fun onClick(v: View) {
+        when (v.id) {
+            R.id.backButton -> super.onBackPressed()
+        }
 
     }
     protected abstract fun processImage()

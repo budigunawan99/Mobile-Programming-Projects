@@ -1,7 +1,7 @@
 package com.bnawan.saferoute.ui.camera
 
+import android.annotation.SuppressLint
 import android.app.Fragment
-import android.graphics.ImageDecoder
 import android.graphics.SurfaceTexture
 import android.hardware.Camera
 import android.hardware.Camera.CameraInfo
@@ -36,10 +36,15 @@ import java.io.IOException
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */   class LegacyCameraConnectionFragment(
-        private val imageListener: PreviewCallback,
-        /** The layout identifier to inflate for this Fragment.  */
-        private val layout: Int, private val desiredSize: Size) : Fragment() {
+ */
+@SuppressLint("ValidFragment")
+class LegacyCameraConnectionFragment (
+    private val imageListener: PreviewCallback,
+    /** The layout identifier to inflate for this Fragment.  */
+    private val layout: Int,
+    private val desiredSize: Size
+) : Fragment() {
+
     companion object {
         private val LOGGER = Logger()
 
@@ -54,10 +59,10 @@ import java.io.IOException
         }
 
         fun newInstance(
-                imageListener: PreviewCallback,
-                layout: Int,
-                desiredSize: Size
-        ):LegacyCameraConnectionFragment{
+            imageListener: PreviewCallback,
+            layout: Int,
+            desiredSize: Size
+        ): LegacyCameraConnectionFragment {
             return LegacyCameraConnectionFragment(imageListener, layout, desiredSize)
         }
     }
@@ -73,13 +78,15 @@ import java.io.IOException
      */
     private val surfaceTextureListener: SurfaceTextureListener = object : SurfaceTextureListener {
         override fun onSurfaceTextureAvailable(
-                texture: SurfaceTexture, width: Int, height: Int) {
+            texture: SurfaceTexture, width: Int, height: Int
+        ) {
             availableSurfaceTexture = texture
             startCamera()
         }
 
         override fun onSurfaceTextureSizeChanged(
-                texture: SurfaceTexture, width: Int, height: Int) {
+            texture: SurfaceTexture, width: Int, height: Int
+        ) {
         }
 
         override fun onSurfaceTextureDestroyed(texture: SurfaceTexture): Boolean {
@@ -151,7 +158,8 @@ import java.io.IOException
             val parameters = camera!!.getParameters()
             val focusModes = parameters.supportedFocusModes
             if (focusModes != null
-                    && focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+                && focusModes.contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)
+            ) {
                 parameters.focusMode = Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE
             }
             val cameraSizes = parameters.supportedPreviewSizes
@@ -161,7 +169,8 @@ import java.io.IOException
                 sizes[i++] = Size(size.width, size.height)
             }
             val previewSize = chooseOptimalSize(
-                    sizes, desiredSize.width, desiredSize.height)
+                sizes, desiredSize.width, desiredSize.height
+            )
             parameters.setPreviewSize(previewSize!!.width, previewSize.height)
             camera!!.setDisplayOrientation(90)
             camera!!.setParameters(parameters)

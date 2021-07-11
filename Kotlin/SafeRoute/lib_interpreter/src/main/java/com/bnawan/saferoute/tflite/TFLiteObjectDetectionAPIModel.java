@@ -35,6 +35,7 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -237,31 +238,14 @@ public class TFLiteObjectDetectionAPIModel implements Detector {
                             outputLocations[0][i][3] * inputSize,
                             outputLocations[0][i][2] * inputSize);
             Log.i("kelas", labels.get((int) outputClasses[0][i]));
-            List<String> kelas = new ArrayList<>();
-            kelas.add("person");
-            kelas.add("fire hydrant");
-            kelas.add("stop sign");
-            kelas.add("parking meter");
-            kelas.add("bench");
-            kelas.add("backpack");
-            kelas.add("umbrella");
-            kelas.add("suitcase");
-            kelas.add("sports ball");
-            kelas.add("banana");
-            kelas.add("chair");
-            kelas.add("couch");
-            kelas.add("potted plant");
-            kelas.add("bed");
-            kelas.add("dining table");
-            kelas.add("toilet");
-            kelas.add("tv");
-            kelas.add("microwave");
-            kelas.add("oven");
-            kelas.add("toaster");
-            kelas.add("sink");
-            kelas.add("refrigerator");
-            kelas.add("clock");
-            kelas.add("vase");
+
+            List<String> listObject = Arrays.asList(
+                    "person", "fire hydrant", "stop sign", "parking meter", "bench",
+                    "backpack", "umbrella", "suitcase", "sports ball", "banana", "chair",
+                    "couch", "potted plant", "bed", "dining table", "toilet", "tv", "microwave",
+                    "oven", "toaster", "sink", "refrigerator", "clock", "vase"
+            );
+            List<String> kelas = new ArrayList<>(listObject);
 
             for(String k:kelas){
               if(k.equals(labels.get((int) outputClasses[0][i]))){
