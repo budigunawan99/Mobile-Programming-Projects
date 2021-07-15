@@ -116,6 +116,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
             isProcessingFrame = false
         }
         processImage()
+        processDistance()
     }
 
     /** Callback for Camera2 API  */
@@ -159,6 +160,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
                 isProcessingFrame = false
             }
             processImage()
+            processDistance()
         } catch (e: Exception) {
             LOGGER.e(e, "Exception!")
             Trace.endSection()
@@ -349,6 +351,8 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
         }
 
     }
+
+    protected abstract fun processDistance()
     protected abstract fun processImage()
     protected abstract fun onPreviewSizeChosen(size: Size?, rotation: Int)
     protected abstract val layoutId: Int

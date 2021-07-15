@@ -41,6 +41,8 @@ public interface Detector {
      */
     private final String id;
 
+    private final Integer labelPosition;
+
     /** Display name for the recognition. */
     private final String title;
 
@@ -53,8 +55,9 @@ public interface Detector {
     private RectF location;
 
     public Recognition(
-        final String id, final String title, final Float confidence, final RectF location) {
+        final String id, final Integer labelPosition, final String title, final Float confidence, final RectF location) {
       this.id = id;
+      this.labelPosition = labelPosition;
       this.title = title;
       this.confidence = confidence;
       this.location = location;
@@ -62,6 +65,10 @@ public interface Detector {
 
     public String getId() {
       return id;
+    }
+
+    public Integer getLabelPosition() {
+      return labelPosition;
     }
 
     public String getTitle() {
@@ -85,6 +92,10 @@ public interface Detector {
       String resultString = "";
       if (id != null) {
         resultString += "[" + id + "] ";
+      }
+
+      if (labelPosition != null) {
+        resultString += String.valueOf(labelPosition);
       }
 
       if (title != null) {

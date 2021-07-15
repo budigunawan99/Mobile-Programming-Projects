@@ -237,23 +237,21 @@ public class TFLiteObjectDetectionAPIModel implements Detector {
                             outputLocations[0][i][0] * inputSize,
                             outputLocations[0][i][3] * inputSize,
                             outputLocations[0][i][2] * inputSize);
-            Log.i("kelas", labels.get((int) outputClasses[0][i]));
 
-            List<String> listObject = Arrays.asList(
-                    "person", "fire hydrant", "stop sign", "parking meter", "bench",
-                    "backpack", "umbrella", "suitcase", "sports ball", "banana", "chair",
-                    "couch", "potted plant", "bed", "dining table", "toilet", "tv", "microwave",
-                    "oven", "toaster", "sink", "refrigerator", "clock", "vase"
+            // limit object
+            List<Integer> listObject = Arrays.asList(
+                    0, 10, 12, 13, 14, 26, 27, 32, 36, 51, 61, 62, 63, 64, 66, 71, 77,
+                    78, 79, 80, 81, 84, 86
             );
-            List<String> kelas = new ArrayList<>(listObject);
+            List<Integer> kelas = new ArrayList<>(listObject);
 
-            for(String k:kelas){
-              if(k.equals(labels.get((int) outputClasses[0][i]))){
-                recognitions.add(
-                        new Recognition(
-                                "" + i, labels.get((int) outputClasses[0][i]), outputScores[0][i], detection)
-                );
-              }
+            for (Integer k : kelas) {
+                if (k.equals((int) outputClasses[0][i])) {
+                    recognitions.add(
+                            new Recognition(
+                                    "" + i, (int) outputClasses[0][i], labels.get((int) outputClasses[0][i]), outputScores[0][i], detection)
+                    );
+                }
             }
         }
         Trace.endSection(); // "recognizeImage"

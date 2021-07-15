@@ -18,19 +18,27 @@ package com.bnawan.saferoute
 import android.graphics.*
 import android.media.ImageReader.OnImageAvailableListener
 import android.os.SystemClock
+import android.util.Log
 import android.util.Size
 import android.util.TypedValue
 import android.view.View
 import android.widget.Toast
 import com.bnawan.saferoute.customview.OverlayView
+import com.bnawan.saferoute.db.TfObjekHelper
 import com.bnawan.saferoute.env.BorderedText
 import com.bnawan.saferoute.env.ImageUtils
 import com.bnawan.saferoute.env.Logger
 import com.bnawan.saferoute.tflite.Detector
 import com.bnawan.saferoute.tflite.TFLiteObjectDetectionAPIModel
 import com.bnawan.saferoute.tracking.MultiBoxTracker
+import com.bnawan.saferoute.utils.MappingHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.*
+import kotlin.collections.HashMap
 
 /**
  * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
@@ -50,6 +58,7 @@ class DetectorActivity : CameraActivity(), OnImageAvailableListener {
     private var cropToFrameTransform: Matrix? = null
     private var tracker: MultiBoxTracker? = null
     private var borderedText: BorderedText? = null
+    private var idObjekMap: MutableMap<Int, Float> = HashMap()
 
     override fun processImage() {
         ++timestamp
@@ -63,7 +72,15 @@ class DetectorActivity : CameraActivity(), OnImageAvailableListener {
         }
         computingDetection = true
         LOGGER.i("Preparing image $currTimestamp for detection in bg thread.")
-        rgbFrameBitmap!!.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth, previewHeight)
+        rgbFrameBitmap!!.setPixels(
+            getRgbBytes(),
+            0,
+            previewWidth,
+            0,
+            0,
+            previewWidth,
+            previewHeight
+        )
         readyForNextImage()
         val canvas = croppedBitmap?.let { Canvas(it) }
         frameToCropTransform?.let {
@@ -73,7 +90,7 @@ class DetectorActivity : CameraActivity(), OnImageAvailableListener {
         if (SAVE_PREVIEW_BITMAP) {
             ImageUtils.saveBitmap(croppedBitmap!!)
         }
-        runInBackground (
+        runInBackground(
             Runnable {
                 LOGGER.i("Running detection on image $currTimestamp")
                 val startTime = SystemClock.uptimeMillis()
@@ -90,6 +107,7 @@ class DetectorActivity : CameraActivity(), OnImageAvailableListener {
                     DetectorMode.TF_OD_API -> MINIMUM_CONFIDENCE_TF_OD_API
                 }
                 val mappedRecognitions: MutableList<Detector.Recognition> = ArrayList()
+                idObjekMap = HashMap()
                 for (result in results) {
                     val location = result.location
                     if (location != null && result.confidence >= minimumConfidence) {
@@ -97,6 +115,7 @@ class DetectorActivity : CameraActivity(), OnImageAvailableListener {
                         cropToFrameTransform!!.mapRect(location)
                         result.location = location
                         mappedRecognitions.add(result)
+                        idObjekMap[result.labelPosition] = (result.location.bottom - result.location.top)
                     }
                 }
                 tracker!!.trackResults(mappedRecognitions, currTimestamp)
@@ -106,26 +125,49 @@ class DetectorActivity : CameraActivity(), OnImageAvailableListener {
         )
     }
 
+    override fun processDistance() {
+        GlobalScope.launch(Dispatchers.Main) {
+            val tfObjekHelper = TfObjekHelper.getInstance(applicationContext)
+            tfObjekHelper.open()
+
+            idObjekMap.forEach { (id, pixel) ->
+                val defferedObjek = async(Dispatchers.IO) {
+                    val cursor = tfObjekHelper.queryById(id)
+                    MappingHelper.mapCursorToTfObjek(cursor)
+                }
+                val objek = defferedObjek.await()
+                Log.d("processDistance", objek.tinggi.toString() + " " + pixel.toString())
+            }
+
+            tfObjekHelper.close()
+
+        }
+
+    }
+
     override fun onPreviewSizeChosen(size: Size?, rotation: Int) {
         val textSizePx = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, resources.displayMetrics)
+            TypedValue.COMPLEX_UNIT_DIP, TEXT_SIZE_DIP, resources.displayMetrics
+        )
         borderedText = BorderedText(textSizePx)
         borderedText!!.setTypeface(Typeface.MONOSPACE)
         tracker = MultiBoxTracker(this)
         var cropSize = TF_OD_API_INPUT_SIZE
         try {
             detector = TFLiteObjectDetectionAPIModel.create(
-                    this,
-                    TF_OD_API_MODEL_FILE,
-                    TF_OD_API_LABELS_FILE,
-                    TF_OD_API_INPUT_SIZE,
-                    TF_OD_API_IS_QUANTIZED)
+                this,
+                TF_OD_API_MODEL_FILE,
+                TF_OD_API_LABELS_FILE,
+                TF_OD_API_INPUT_SIZE,
+                TF_OD_API_IS_QUANTIZED
+            )
             cropSize = TF_OD_API_INPUT_SIZE
         } catch (e: IOException) {
             e.printStackTrace()
             LOGGER.e(e, "Exception initializing Detector!")
             val toast = Toast.makeText(
-                    applicationContext, "Detector could not be initialized", Toast.LENGTH_SHORT)
+                applicationContext, "Detector could not be initialized", Toast.LENGTH_SHORT
+            )
             toast.show()
             finish()
         }
@@ -137,21 +179,22 @@ class DetectorActivity : CameraActivity(), OnImageAvailableListener {
         rgbFrameBitmap = Bitmap.createBitmap(previewWidth, previewHeight, Bitmap.Config.ARGB_8888)
         croppedBitmap = Bitmap.createBitmap(cropSize, cropSize, Bitmap.Config.ARGB_8888)
         frameToCropTransform = ImageUtils.getTransformationMatrix(
-                previewWidth, previewHeight,
-                cropSize, cropSize,
-                sensorOrientation!!, MAINTAIN_ASPECT)
+            previewWidth, previewHeight,
+            cropSize, cropSize,
+            sensorOrientation!!, MAINTAIN_ASPECT
+        )
         cropToFrameTransform = Matrix()
         frameToCropTransform!!.invert(cropToFrameTransform)
         trackingOverlay = findViewById<View>(R.id.tracking_overlay) as OverlayView
-        trackingOverlay!!.addCallback (
-                object: OverlayView.DrawCallback {
-                    override fun drawCallback(canvas: Canvas?) {
-                        tracker!!.draw(canvas!!);
-                        if (isDebug) {
-                            tracker!!.drawDebug(canvas);
-                        }
+        trackingOverlay!!.addCallback(
+            object : OverlayView.DrawCallback {
+                override fun drawCallback(canvas: Canvas?) {
+                    tracker!!.draw(canvas!!);
+                    if (isDebug) {
+                        tracker!!.drawDebug(canvas);
                     }
                 }
+            }
         )
         tracker!!.setFrameConfiguration(previewWidth, previewHeight, sensorOrientation!!)
     }
@@ -169,7 +212,7 @@ class DetectorActivity : CameraActivity(), OnImageAvailableListener {
     }
 
     override fun setUseNNAPI(isChecked: Boolean) {
-        runInBackground (
+        runInBackground(
             Runnable {
                 try {
                     detector!!.setUseNNAPI(isChecked)
