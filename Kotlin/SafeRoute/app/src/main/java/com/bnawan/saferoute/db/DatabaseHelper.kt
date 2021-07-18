@@ -29,7 +29,7 @@ internal class DatabaseHelper (context: Context) : SQLiteOpenHelper(context, DAT
                 "(36, 'sports ball', 22)," +
                 "(51, 'banana', 4)," +
                 "(61, 'chair', 86)," +
-                "(62, 'couch', 63)," +
+                "(62, 'couch', 94)," +
                 "(63, 'potted plant', 63)," +
                 "(64, 'bed', 68)," +
                 "(66, 'dining table', 78)," +

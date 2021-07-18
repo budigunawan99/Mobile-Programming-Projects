@@ -22,6 +22,7 @@ import android.util.Log
 import android.util.Size
 import android.util.TypedValue
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import com.bnawan.saferoute.customview.OverlayView
 import com.bnawan.saferoute.db.TfObjekHelper
@@ -38,6 +39,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.*
+import kotlin.ConcurrentModificationException
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 /**
@@ -115,7 +118,8 @@ class DetectorActivity : CameraActivity(), OnImageAvailableListener {
                         cropToFrameTransform!!.mapRect(location)
                         result.location = location
                         mappedRecognitions.add(result)
-                        idObjekMap[result.labelPosition] = (result.location.bottom - result.location.top)
+                        idObjekMap[result.labelPosition] =
+                            (result.location.right - result.location.left)
                     }
                 }
                 tracker!!.trackResults(mappedRecognitions, currTimestamp)
@@ -125,24 +129,34 @@ class DetectorActivity : CameraActivity(), OnImageAvailableListener {
         )
     }
 
-    override fun processDistance() {
+    override fun processDistance(focalLength: Float) {
         GlobalScope.launch(Dispatchers.Main) {
             val tfObjekHelper = TfObjekHelper.getInstance(applicationContext)
+            var arr_jarak: MutableList<Float> = ArrayList()
             tfObjekHelper.open()
-
-            idObjekMap.forEach { (id, pixel) ->
-                val defferedObjek = async(Dispatchers.IO) {
-                    val cursor = tfObjekHelper.queryById(id)
-                    MappingHelper.mapCursorToTfObjek(cursor)
+            try {
+                idObjekMap.forEach { (id, pixel) ->
+                    val defferedObjek = async(Dispatchers.IO) {
+                        val cursor = tfObjekHelper.queryById(id)
+                        MappingHelper.mapCursorToTfObjek(cursor)
+                    }
+                    val objek = defferedObjek.await()
+                    val jarak = (objek.tinggi?.toFloat()?.times(focalLength))?.div(pixel)?:0.0F
+                    Log.d(
+                        "processDistance",
+                        "${objek.tinggi} $jarak"
+                    )
+                    arr_jarak.add(jarak)
                 }
-                val objek = defferedObjek.await()
-                Log.d("processDistance", objek.tinggi.toString() + " " + pixel.toString())
+            } catch (e: ConcurrentModificationException) {
+                Log.d("exception", "HashMap Resetting $e")
+                arr_jarak = ArrayList()
             }
-
             tfObjekHelper.close()
-
+            val finalJarak: Float = arr_jarak.minOrNull() ?: 0.0F
+            val cameraDistance: TextView = findViewById(R.id.camera_subtitle_distance)
+            cameraDistance.text = String.format("%.2f", finalJarak)
         }
-
     }
 
     override fun onPreviewSizeChosen(size: Size?, rotation: Int) {

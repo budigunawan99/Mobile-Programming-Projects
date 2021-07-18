@@ -28,6 +28,7 @@ import android.media.Image.Plane
 import android.media.ImageReader
 import android.media.ImageReader.OnImageAvailableListener
 import android.os.*
+import android.util.Log
 import android.util.Size
 import android.view.Surface
 import android.view.View
@@ -39,9 +40,12 @@ import com.bnawan.saferoute.ui.camera.CameraConnectionFragment
 import com.bnawan.saferoute.ui.camera.LegacyCameraConnectionFragment
 import com.bnawan.saferoute.env.ImageUtils
 import com.bnawan.saferoute.env.Logger
+import kotlin.math.PI
+import kotlin.math.tan
 import kotlin.properties.Delegates
 
-abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, PreviewCallback, View.OnClickListener {
+abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, PreviewCallback,
+    View.OnClickListener {
     protected var previewWidth = 0
     protected var previewHeight = 0
     val isDebug = false
@@ -54,6 +58,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
     private var yRowStride by Delegates.notNull<Int>()
     private var postInferenceCallback: Runnable? = null
     private var imageConverter: Runnable? = null
+    private var focalLength: Float = 0.0F
 
     override fun onCreate(savedInstanceState: Bundle?) {
         LOGGER.d("onCreate $this")
@@ -65,7 +70,8 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
         backButton.setOnClickListener(this)
 
         val cameraTitle: TextView = findViewById(R.id.camera_title)
-        val ruangan = intent.getParcelableExtra<Ruangan>(DetectorActivity.CAMERA_HEADER_TITLE) as Ruangan
+        val ruangan =
+            intent.getParcelableExtra<Ruangan>(DetectorActivity.CAMERA_HEADER_TITLE) as Ruangan
         cameraTitle.text = ruangan.nama
 
         if (hasPermission()) {
@@ -80,11 +86,11 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
         return rgbBytes
     }
 
-    protected fun getLuminanceStride():Int{
+    protected fun getLuminanceStride(): Int {
         return yRowStride
     }
 
-    protected fun getLuminance(): ByteArray?{
+    protected fun getLuminance(): ByteArray? {
         return yuvBytes[0]
     }
 
@@ -94,10 +100,10 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
             LOGGER.w("Dropping frame!")
             return
         }
+        val previewSize = camera.parameters.previewSize
         try {
             // Initialize the storage bitmaps once when the resolution is known.
             if (rgbBytes == null) {
-                val previewSize = camera.parameters.previewSize
                 previewHeight = previewSize.height
                 previewWidth = previewSize.width
                 rgbBytes = IntArray(previewWidth * previewHeight)
@@ -110,13 +116,25 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
         isProcessingFrame = true
         yuvBytes[0] = bytes
         yRowStride = previewWidth
-        imageConverter = Runnable { ImageUtils.convertYUV420SPToARGB8888(bytes, previewWidth, previewHeight, rgbBytes) }
+        imageConverter = Runnable {
+            ImageUtils.convertYUV420SPToARGB8888(
+                bytes,
+                previewWidth,
+                previewHeight,
+                rgbBytes
+            )
+        }
         postInferenceCallback = Runnable {
             camera.addCallbackBuffer(bytes)
             isProcessingFrame = false
         }
+        val verticalViewAngle: Float = camera.parameters.verticalViewAngle
+        focalLength =
+            (previewSize.height.toFloat() * 0.5F) / tan(verticalViewAngle * 0.5F * PI.toFloat() / 180)
+
+        Log.d("focalLength", "$focalLength and ${verticalViewAngle}")
         processImage()
-        processDistance()
+        processDistance(focalLength)
     }
 
     /** Callback for Camera2 API  */
@@ -144,15 +162,16 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
             imageConverter = object : Runnable {
                 override fun run() {
                     ImageUtils.convertYUV420ToARGB8888(
-                            yuvBytes[0],
-                            yuvBytes[1],
-                            yuvBytes[2],
-                            previewWidth,
-                            previewHeight,
-                            yRowStride,
-                            uvRowStride,
-                            uvPixelStride,
-                            rgbBytes)
+                        yuvBytes[0],
+                        yuvBytes[1],
+                        yuvBytes[2],
+                        previewWidth,
+                        previewHeight,
+                        yRowStride,
+                        uvRowStride,
+                        uvPixelStride,
+                        rgbBytes
+                    )
                 }
             }
             postInferenceCallback = Runnable {
@@ -160,7 +179,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
                 isProcessingFrame = false
             }
             processImage()
-            processDistance()
+            processDistance(focalLength)
         } catch (e: Exception) {
             LOGGER.e(e, "Exception!")
             Trace.endSection()
@@ -220,7 +239,8 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
     }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSIONS_REQUEST) {
             if (allPermissionsGranted(grantResults)) {
@@ -243,10 +263,11 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (shouldShowRequestPermissionRationale(PERMISSION_CAMERA)) {
                 Toast.makeText(
-                        this@CameraActivity,
-                        "Camera permission is required for this demo",
-                        Toast.LENGTH_LONG)
-                        .show()
+                    this@CameraActivity,
+                    "Camera permission is required for this demo",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
             }
             requestPermissions(arrayOf(PERMISSION_CAMERA), PERMISSIONS_REQUEST)
         }
@@ -254,7 +275,8 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
 
     // Returns true if the device supports the required hardware level, or better.
     private fun isHardwareLevelSupported(
-            characteristics: CameraCharacteristics, requiredLevel: Int): Boolean {
+        characteristics: CameraCharacteristics, requiredLevel: Int
+    ): Boolean {
         val deviceLevel = characteristics.get(CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL)
         return if (deviceLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY) {
             requiredLevel == deviceLevel
@@ -274,14 +296,15 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
                     continue
                 }
                 val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
-                        ?: continue
+                    ?: continue
 
                 // Fallback to camera1 API for internal cameras that don't have full support.
                 // This should help with legacy situations where using the camera2 API causes
                 // distorted or otherwise broken previews.
                 useCamera2API = (facing == CameraCharacteristics.LENS_FACING_EXTERNAL
                         || isHardwareLevelSupported(
-                        characteristics, CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_FULL))
+                    characteristics, CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_FULL
+                ))
                 LOGGER.i("Camera API lv2?: %s", useCamera2API)
                 return cameraId
             }
@@ -352,7 +375,7 @@ abstract class CameraActivity : AppCompatActivity(), OnImageAvailableListener, P
 
     }
 
-    protected abstract fun processDistance()
+    protected abstract fun processDistance(focalLength: Float)
     protected abstract fun processImage()
     protected abstract fun onPreviewSizeChosen(size: Size?, rotation: Int)
     protected abstract val layoutId: Int
